@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manalo High School - Home</title>
+    <link rel="stylesheet" href="styles_css.css">
+    <script src="chart.min.js"></script>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <div class="logo">🎓 Manalo High School</div>
+            <ul class="nav-menu" id="nav-menu">
+                <li class="nav-item"><a href="homepage.html" class="nav-link active">Home</a></li>
+                <li class="nav-item"><a href="students_page.html" class="nav-link">Students</a></li>
+                <li class="nav-item"><a href="contact_page.html" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>Welcome to Manalo High School</h1>
+            <p>Excellence in Education Since 1995 - Dashboard Overview</p>
+        </div>
+        
+        <div class="page-content">
+            <div class="welcome-section">
+                <h2 class="welcome-title">School Administration Dashboard</h2>
+                <p style="font-size: 1.1rem; color: #718096; max-width: 600px; margin: 0 auto;">
+                    Real-time overview of student enrollment, academic performance, and school statistics.
+                </p>
+            </div>
+            
+            <div class="announcements">
+                <h3 style="margin-bottom: 1rem;">📢 School Announcements</h3>
+                <div class="announcement-text" id="announcement-text">
+                    Enrollment is open until June 30!
+                </div>
+            </div>
+
+            <!-- Enhanced Stats Grid -->
+            <div class="stats-grid">
+                <div class="stat-card stat-card-blue">
+                    <div class="stat-icon">👥</div>
+                    <h3 id="total-students-display">0</h3>
+                    <p>Total Students</p>
+                    <span class="trend-indicator trend-up" id="enrollment-trend">+3% this month</span>
+                </div>
+                <div class="stat-card stat-card-pink">
+                    <div class="stat-icon">👨‍🏫</div>
+                    <h3>85+</h3>
+                    <p>Expert Teachers</p>
+                    <span class="trend-indicator trend-up">+2 new hires</span>
+                </div>
+                <div class="stat-card stat-card-cyan">
+                    <div class="stat-icon">🏆</div>
+                    <h3>15+</h3>
+                    <p>Awards Won</p>
+                    <span class="trend-indicator trend-up">+3 this year</span>
+                </div>
+            </div>
+
+            <!-- Quick Actions -->
+            <div class="quick-actions">
+                <a href="students_page.html" class="action-btn">
+                    👥 View All Students
+                </a>
+                <a href="contact_page.html" class="action-btn">
+                    📧 Contact Administration
+                </a>
+                <a href="#" class="action-btn" onclick="generateReport()">
+                    📊 Generate Report
+                </a>
+                <a href="#" class="action-btn" onclick="showEnrollmentForm()">
+                    ➕ New Enrollment
+                </a>
+            </div>
+
+            <!-- Dashboard Cards -->
+            <div class="dashboard-grid">
+                <!-- Grade Distribution Chart -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon">📊</div>
+                        <div class="card-title">Grade Distribution</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="gradeChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Section Overview -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon">🏫</div>
+                        <div class="card-title">Section Overview</div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="sectionChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Student Status -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon">✅</div>
+                        <div class="card-title">Student Status</div>
+                    </div>
+                    <div id="status-metrics">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                    <div class="chart-container" style="height: 150px;">
+                        <canvas id="statusChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon">🔔</div>
+                        <div class="card-title">Recent Activity</div>
+                    </div>
+                    <div class="recent-activity" id="recent-activity">
+                        <!-- Will be populated by JavaScript -->
+                    </div>
+                </div>
+
+                <!-- Performance Metrics -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon">📈</div>
+                        <div class="card-title">School Performance</div>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Academic Performance</span>
+                        <span class="metric-value">92%<span class="performance-indicator indicator-excellent">Excellent</span></span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Attendance Rate</span>
+                        <span class="metric-value">96%<span class="performance-indicator indicator-excellent">Excellent</span></span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Teacher Satisfaction</span>
+                        <span class="metric-value">88%<span class="performance-indicator indicator-good">Good</span></span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Student Retention</span>
+                        <span class="metric-value">94%<span class="performance-indicator indicator-excellent">Excellent</span></span>
+                    </div>
+                </div>
+
+                <!-- Quick Student Search -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div class="card-icon">🔍</div>
+                        <div class="card-title">Quick Student Lookup</div>
+                    </div>
+                    <div style="margin-bottom: 1rem;">
+                        <input type="text" id="quick-search" placeholder="Enter student name or ID..." 
+                               style="width: 100%; padding: 0.75rem; border: 1px solid #e2e8f0; border-radius: 8px; margin-bottom: 1rem;">
+                        <button onclick="quickSearch()" style="width: 100%; padding: 0.75rem; background: #667eea; color: white; border: none; border-radius: 8px; cursor: pointer;">
+                            Search Student
+                        </button>
+                    </div>
+                    <div id="quick-search-result" style="padding: 1rem 0; border-top: 1px solid #f1f5f9; margin-top: 1rem; display: none;">
+                        <!-- Search results will appear here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Original Features Section -->
+            <div class="features-section">
+                <h2 style="text-align: center; margin-bottom: 2rem; color: #4a5568;">Our Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">📚</div>
+                        <h3>Quality Education</h3>
+                        <p>Comprehensive curriculum designed to prepare students for future success</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔬</div>
+                        <h3>Modern Facilities</h3>
+                        <p>State-of-the-art laboratories, library, and technology resources</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🎭</div>
+                        <h3>Extracurricular Activities</h3>
+                        <p>Wide range of clubs, sports, and activities for holistic development</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Manalo High School</h4>
+                    <p>Building futures, one student at a time.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="students.html">Students</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <p>📍 143 Brent Street, Manalo City, JM 0420</p>
+                    <p>📞 (555) 123-4567</p>
+                    <p>✉️ examplenijhun@baccay.edu</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Manalo High School. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="javascript_file.js"></script>
+    <script>
+        // Dashboard-specific functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            initializeDashboard();
+        });
+
+        function initializeDashboard() {
+            updateDashboardStats();
+            createGradeChart();
+            createSectionChart();
+            createStatusChart();
+            populateRecentActivity();
+            setupQuickSearch();
+        }
+
+        function updateDashboardStats() {
+            // Update total students display
+            const totalStudentsEl = document.getElementById('total-students-display');
+            if (totalStudentsEl && window.SchoolSystem) {
+                totalStudentsEl.textContent = window.SchoolSystem.students.length;
+            }
+        }
+
+        function createGradeChart() {
+            const ctx = document.getElementById('gradeChart');
+            if (!ctx || !window.SchoolSystem) return;
+
+            const gradeCounts = {};
+            window.SchoolSystem.students.forEach(student => {
+                gradeCounts[student.grade] = (gradeCounts[student.grade] || 0) + 1;
+            });
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: Object.keys(gradeCounts),
+                    datasets: [{
+                        data: Object.values(gradeCounts),
+                        backgroundColor: ['#667eea', '#ed8936', '#38b2ac', '#9f7aea'],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createSectionChart() {
+            const ctx = document.getElementById('sectionChart');
+            if (!ctx || !window.SchoolSystem) return;
+
+            const sectionCounts = {};
+            window.SchoolSystem.students.forEach(student => {
+                const key = `Section ${student.section}`;
+                sectionCounts[key] = (sectionCounts[key] || 0) + 1;
+            });
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: Object.keys(sectionCounts),
+                    datasets: [{
+                        label: 'Students per Section',
+                        data: Object.values(sectionCounts),
+                        backgroundColor: '#667eea',
+                        borderRadius: 6,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                stepSize: 1
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        function createStatusChart() {
+            const ctx = document.getElementById('statusChart');
+            if (!ctx || !window.SchoolSystem) return;
+
+            const statusCounts = {
+                'Active': 0,
+                'Inactive': 0
+            };
+
+            window.SchoolSystem.students.forEach(student => {
+                statusCounts[student.status]++;
+            });
+
+            // Update status metrics
+            const statusMetrics = document.getElementById('status-metrics');
+            if (statusMetrics) {
+                statusMetrics.innerHTML = `
+                    <div class="metric-row">
+                        <span class="metric-label">Active Students</span>
+                        <span class="metric-value">${statusCounts.Active}</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Inactive Students</span>
+                        <span class="metric-value">${statusCounts.Inactive}</span>
+                    </div>
+                    <div class="metric-row">
+                        <span class="metric-label">Active Rate</span>
+                        <span class="metric-value">${Math.round((statusCounts.Active / window.SchoolSystem.students.length) * 100)}%</span>
+                    </div>
+                `;
+            }
+
+            new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Active', 'Inactive'],
+                    datasets: [{
+                        data: [statusCounts.Active, statusCounts.Inactive],
+                        backgroundColor: ['#38a169', '#e53e3e'],
+                        borderWidth: 2,
+                        borderColor: '#fff'
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    }
+                }
+            });
+        }
+
+        function populateRecentActivity() {
+            const activityContainer = document.getElementById('recent-activity');
+            if (!activityContainer) return;
+
+            const activities = [
+                {
+                    type: 'new',
+                    icon: '👤',
+                    title: 'New student enrolled: Blessed Monica Ydel',
+                    time: '2 hours ago'
+                },
+                {
+                    type: 'update',
+                    icon: '📝',
+                    title: 'Grade reports updated for 12th Grade Section A',
+                    time: '4 hours ago'
+                },
+                {
+                    type: 'alert',
+                    icon: '⚠️',
+                    title: 'Parent-teacher meeting scheduled',
+                    time: '6 hours ago'
+                },
+                {
+                    type: 'new',
+                    icon: '📚',
+                    title: 'New course materials uploaded',
+                    time: '1 day ago'
+                },
+                {
+                    type: 'update',
+                    icon: '✅',
+                    title: 'Attendance records synchronized',
+                    time: '1 day ago'
+                }
+            ];
+
+            activityContainer.innerHTML = activities.map(activity => `
+                <div class="activity-item">
+                    <div class="activity-icon activity-${activity.type}">
+                        ${activity.icon}
+                    </div>
+                    <div class="activity-content">
+                        <div class="activity-title">${activity.title}</div>
+                        <div class="activity-time">${activity.time}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function setupQuickSearch() {
+            const searchInput = document.getElementById('quick-search');
+            if (searchInput) {
+                searchInput.addEventListener('keypress', function(e) {
+                    if (e.key === 'Enter') {
+                        quickSearch();
+                    }
+                });
+            }
+        }
+
+        function quickSearch() {
+            const searchInput = document.getElementById('quick-search');
+            const resultDiv = document.getElementById('quick-search-result');
+            
+            if (!searchInput || !resultDiv || !window.SchoolSystem) return;
+            
+            const searchTerm = searchInput.value.toLowerCase().trim();
+            
+            if (!searchTerm) {
+                resultDiv.style.display = 'none';
+                return;
+            }
+            
+            const foundStudents = window.SchoolSystem.students.filter(student => 
+                student.name.toLowerCase().includes(searchTerm) || 
+                student.id.toLowerCase().includes(searchTerm)
+            );
+            
+            if (foundStudents.length > 0) {
+                const student = foundStudents[0]; // Show first match
+                resultDiv.innerHTML = `
+                    <div style="text-align: center;">
+                        <h4 style="color: #1a202c; margin-bottom: 0.5rem;">${student.name}</h4>
+                        <p style="color: #4a5568; margin-bottom: 0.25rem;">ID: ${student.id}</p>
+                        <p style="color: #4a5568; margin-bottom: 0.25rem;">${student.grade} - Section ${student.section}</p>
+                        <span class="status-${student.status.toLowerCase()}">${student.status}</span>
+                        ${foundStudents.length > 1 ? `<p style="margin-top: 0.75rem; color: #718096; font-size: 0.875rem;">+${foundStudents.length - 1} more found</p>` : ''}
+                    </div>
+                `;
+                resultDiv.style.display = 'block';
+            } else {
+                resultDiv.innerHTML = `
+                    <div style="text-align: center; color: #718096;">
+                        <p>No student found with that name or ID</p>
+                    </div>
+                `;
+                resultDiv.style.display = 'block';
+            }
+        }
+
+        function generateReport() {
+            if (!window.SchoolSystem) return;
+            
+            const students = window.SchoolSystem.students;
+            const gradeCounts = {};
+            const sectionCounts = {};
+            let activeCount = 0;
+            
+            students.forEach(student => {
+                gradeCounts[student.grade] = (gradeCounts[student.grade] || 0) + 1;
+                sectionCounts[student.section] = (sectionCounts[student.section] || 0) + 1;
+                if (student.status === 'Active') activeCount++;
+            });
+            
+            const report = `
+MANALO HIGH SCHOOL - STUDENT REPORT
+Generated: ${new Date().toLocaleDateString()}
+
+SUMMARY STATISTICS:
+- Total Students: ${students.length}
+- Active Students: ${activeCount}
+- Inactive Students: ${students.length - activeCount}
+- Active Rate: ${Math.round((activeCount / students.length) * 100)}%
+
+GRADE DISTRIBUTION:
+${Object.entries(gradeCounts).map(([grade, count]) => `- ${grade}: ${count} students`).join('\n')}
+
+SECTION DISTRIBUTION:
+${Object.entries(sectionCounts).map(([section, count]) => `- Section ${section}: ${count} students`).join('\n')}
+
+END OF REPORT
+            `;
+            
+            // Create and download report
+            const blob = new Blob([report], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `manalo_school_report_${new Date().toISOString().split('T')[0]}.txt`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert('Report generated and downloaded successfully!');
+        }
+
+        function showEnrollmentForm() {
+            alert('New Enrollment Form\n\nThis would typically open a form for new student registration. For now, please contact the admissions office at (555) 123-4568 or visit our Contact page.');
+        }
+
+        // Override the original homepage initialization to include dashboard
+        function initializeHomePage() {
+            const announcementText = document.getElementById('announcement-text');
+            if (announcementText) {
+                rotateAnnouncements();
+            }
+            
+            // Initialize dashboard after a short delay to ensure DOM is ready
+            setTimeout(initializeDashboard, 100);
+        }
+    </script>
+</body>
+</html>
